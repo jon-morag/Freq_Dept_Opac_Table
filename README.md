@@ -7,7 +7,7 @@ Written in Matlab.
 
 How to Use:
 - Run 'setup.m' once
-- Produce and plot an opacity for a specific (rho,T) and 'composition using produce_plot_opac.m'
+- Produce and plot an opacity for a specific (rho,T) and composition using 'produce_plot_opac.m'
 - Produce tables for several (rho, T) or (R,T) using 'produce_and_save_hires_opac_tbl….m'
 - 'standard_opac_profile.m' sets which physical components are included.
 - Install the 3rd party function ScaleTime for a ~25% efficiency improvement. Make sure to turn its use on in 'standard_opac_profile.m'.
