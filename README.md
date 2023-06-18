@@ -6,7 +6,7 @@ Written in Matlab.
 ————————————————
 
 How to Use:
-- Run 'setup.m' once
+- Download folder and run 'setup.m' once
 - Produce and plot an opacity for a specific (rho,T) and composition using 'produce_plot_opac.m'
 - Produce tables for several (rho, T) or (R,T) using 'produce_and_save_hires_opac_tbl….m'
 - 'standard_opac_profile.m' sets which physical components are included.
