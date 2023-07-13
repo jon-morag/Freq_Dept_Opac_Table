@@ -1,11 +1,11 @@
 # Freq_Dept_Opac_Table
 
 A frequency-dependent opacity table, assuming LTE and arbitrary density, temperature, and chemical composition, with free-free, bound-free, and bound-bound components.
-Written in Matlab.
+Written in Matlab. Stay tuned for python version.
 
 ————————————————
 
-cite as: 
+cite as: https://arxiv.org/abs/2307.05598
 
 ————————————————
 
