@@ -47,7 +47,7 @@ Xfrac(1:2) = Xfrac(1:2) * (1-Z_metal)/(1-Z_sun);
    
 %% Produce
 tic
-[ kappa_abs,kappa_es,nu_calc ] = produce_hires_opac_tbl_rhoT( N_nu , low_res_spacing , rho , T,include_ff , include_bf ,include_bb, A , Z , Xfrac ); %Z_metal=[]->do nothing
+[ kappa_abs,kappa_es,nu_calc ] = produce_hires_opac_tbl_rhoT( N_nu , rho , T,include_ff , include_bf ,include_bb, A , Z , Xfrac ); %Z_metal=[]->do nothing
 toc
 
 %% Plot
