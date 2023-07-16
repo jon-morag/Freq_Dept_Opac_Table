@@ -1,5 +1,6 @@
 % Produce and save a high resolution opacity table binned in nu, T and R=rho/T^3
 save_dir = '';
+addpath(genpath(fullfile([fileparts(mfilename('fullpath')) '/../'])));
 
 %% Grid
 % [tbl_R, tbl_T]=set_RT_grid_16_66;
