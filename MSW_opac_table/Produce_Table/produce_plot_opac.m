@@ -1,3 +1,5 @@
+addpath(genpath(fullfile([fileparts(mfilename('fullpath')) '/../'])));
+
 %% Grid
 rho = 1e-11; %g/cc
 T = 1; %eV
