@@ -1,5 +1,7 @@
 %% Setup
 req_tbls_dir = fullfile([fileparts(mfilename('fullpath')) '/../Required_Tables/']);
+addpath(genpath(fullfile([fileparts(mfilename('fullpath')) '/../'])));
+
 gfall_filename = 'gfall';
 max_element = 26; % i.e. we choose to stop extracting the table at Fe
 matrix_save_name = 'Kurucz_lines_cd23';
