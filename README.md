@@ -1,7 +1,7 @@
 # Freq_Dept_Opac_Table
 
 A frequency-dependent opacity table, assuming LTE and arbitrary density, temperature, and chemical composition, with free-free, bound-free, and bound-bound components.
-Written in Matlab. Stay tuned for python version.
+Written in Matlab (Octave not supported). Stay tuned for python version.
 
 ————————————————
 
@@ -14,5 +14,5 @@ How to Use:
 - Produce and plot an opacity for a specific (rho,T) and composition using 'produce_plot_opac.m'
 - Produce tables for multiple (rho,T) or (R,T) using 'produce_and_save_hires_opac_tbl….m', where R=T^3/rho.
 - 'standard_opac_profile.m' sets which physical components are included.
-- Install the 3rd party function ScaleTime for a ~25% efficiency improvement. Make sure to turn its use on in 'standard_opac_profile.m'.
+- Optional: Install the 3rd party function ScaleTime for a ~25% efficiency improvement. Make sure to turn its use on in 'standard_opac_profile.m'.
 ScaleTime available at https://www.mathworks.com/matlabcentral/fileexchange/25463-scaletime
