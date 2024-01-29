@@ -1,4 +1,4 @@
-# Freq_Dept_Opac_Table
+# NuPac - A Frequency Dependent Opacity Table
 
 A frequency-dependent opacity table, assuming LTE and arbitrary density, temperature, and chemical composition, with free-free, bound-free, and bound-bound components.
 Written in Matlab (Octave not supported). Stay tuned for python version.
