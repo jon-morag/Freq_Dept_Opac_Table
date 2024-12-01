@@ -1,4 +1,4 @@
-# NuPac 2.0 - A Frequency Dependent Opacity Table Code
+# NuPac - A Frequency Dependent Opacity Table Code
 
 A frequency-dependent opacity table, assuming LTE and arbitrary density, temperature, and chemical composition, with free-free, bound-free, and bound-bound components.
 Written in Matlab (Octave not supported).
