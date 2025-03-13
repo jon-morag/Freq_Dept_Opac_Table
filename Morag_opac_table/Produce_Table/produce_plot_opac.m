@@ -1,17 +1,17 @@
 c=set_consts();
 
 %% Commonly changed settings
-% rho = 1e-12; %g/cc
-% T = 3; %eV
-rho = 1e-13; %g/cc
-T = 15e3*c.kboltz/c.eV; %eV
+rho = 1e-12; %g/cc
+T = 3; %eV
+% rho = 1e-13; %g/cc
+% T = 15e3*c.kboltz/c.eV; %eV
 should_plot = 1;
 
-include_ff = 0;
-include_bf = 0;
+include_ff = 1;
+include_bf = 1;
 include_bb = 1;
 
-sobolev = 1; % Produces a MG approximation for bb, based on EP 93 instead of hi-res
+sobolev = 0; % Produces a MG approximation for bb, based on EP 93 instead of hi-res
 t_sobolev = 15*c.day;
 t_sobolev = 0.0001*c.day;
 
