@@ -12,6 +12,7 @@ include_bf = 1;
 include_bb = 1;
 
 sobolev = 0;% Produces a MG approximation for bb, based on EP 93 instead of hi-res
+line_expansion_limiting = 0; %Limit strong lines due to expansion (see Morag Dec. 2025)
 t_sobolev = 1*c.day;
 
 make_MG = 1;
@@ -65,12 +66,16 @@ Xfrac(1:2) = Xfrac(1:2) * (1-Z_metal)/(1-Z_sun);
 if sobolev
     OpacTableFilename = [save_dir  mixname 'SobolevOpacTableR' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 'Nnu' num2str(N_nu) 't_exp' num2str(t_sobolev/c.day) 'days.mat'];
 else
-    OpacTableFilename = [save_dir  mixname 'HiResOpacTableR' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 'Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    if line_expansion_limiting
+        OpacTableFilename = [save_dir  mixname 'HiResOpacTable_line_limited_R' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 't_exp' num2str(t_sobolev) 'Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    else
+        OpacTableFilename = [save_dir  mixname 'HiResOpacTableR' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 'Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    end
 end
    
 %% Produce, Save
 tic
-[ kappa_abs,kappa_es,nu_hi_res ] = produce_hires_opac_tbl_RT( N_nu , tbl_R , tbl_T,include_ff , include_bf ,include_bb, sobolev, t_sobolev, A , Z , Xfrac ); %Z_metal=[]->do nothing
+[ kappa_abs,kappa_es,nu_hi_res ] = produce_hires_opac_tbl_RT( N_nu , tbl_R , tbl_T,include_ff , include_bf ,include_bb, sobolev, line_expansion_limiting, t_sobolev, A , Z , Xfrac ); %Z_metal=[]->do nothing
 toc
 
 save(OpacTableFilename , 'kappa_abs', 'kappa_es','nu_hi_res','tbl_R','tbl_T','-v7.3');
@@ -79,7 +84,11 @@ save(OpacTableFilename , 'kappa_abs', 'kappa_es','nu_hi_res','tbl_R','tbl_T','-v
 if make_MG && ~ sobolev
     disp('Extracting MG table')
     [MG_tbl] = extract_MG_tbl_from_hi_res_kappa_RT(Nnu_MG,nu_hi_res,kappa_abs,kappa_es,tbl_R,tbl_T);
-
-    MGTableFilename = [save_dir  mixname 'MGTableR' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 'NG' num2str(Nnu_MG) '_from_Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    
+    if line_expansion_limiting
+        MGTableFilename = [save_dir  mixname 'MGTable_line_limited_R' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 't_exp' num2str(t_sobolev) 'NG' num2str(Nnu_MG) '_from_Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    else
+        MGTableFilename = [save_dir  mixname 'MGTableR' num2str(length(tbl_R)) 'T' num2str(length(tbl_T)) 'NG' num2str(Nnu_MG) '_from_Nnu1e' num2str(log10(N_nu),2) '.mat'];
+    end
     save(MGTableFilename,'MG_tbl','-v7.3')
 end

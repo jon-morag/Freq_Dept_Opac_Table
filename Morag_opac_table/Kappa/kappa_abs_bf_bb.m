@@ -45,6 +45,10 @@ end
 %% Bound-bound
 
 if Mode.kappa.bb_on
+    if isfield(Mode,'expansion_line_limit') && Mode.expansion_line_limit
+        Mode.kappa_l_sob_lim = 1./(rho*c.c*Mode.t_sobolev);
+    end
+
     [k_bb, k_bb_hi_res] = kappa_abs_bb(nu_hi_res,nu,T,Mode,F0,e_pop, Z,A, X./A/sum(X./A));
 else
     k_bb = 0;

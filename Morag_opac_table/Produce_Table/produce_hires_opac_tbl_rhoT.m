@@ -1,5 +1,5 @@
 
-function [ kappa_abs_hi_res , kappa_es, nu_calc ] = produce_hires_opac_tbl_rhoT(N_nu,tbl_rho ,tbl_T,include_ff,include_bf,include_bb,sobolev,t_sobolev,A,Z,Xfrac )
+function [ kappa_abs_hi_res , kappa_es, nu_calc ] = produce_hires_opac_tbl_rhoT(N_nu,tbl_rho ,tbl_T,include_ff,include_bf,include_bb,sobolev,expansion_line_limit,t_sobolev,A,Z,Xfrac )
 
 c = set_consts();
 nu_calc = logspace(-3.5,4,N_nu)*c.eV; % erg
@@ -15,6 +15,11 @@ if sobolev
     Mode.nu_lims_arr = nu_calc; %average over groups so report the center
     nu_calc = mid(nu_calc);
     N_nu = N_nu-1;
+end
+
+if expansion_line_limit
+    Mode.expansion_line_limit = 1;
+    Mode.t_sobolev = t_sobolev;
 end
 
 Mode.Plasma.A = A; % Atomic mass

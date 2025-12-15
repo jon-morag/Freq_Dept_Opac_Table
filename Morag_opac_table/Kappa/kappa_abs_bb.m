@@ -15,6 +15,16 @@ l_min_nu = log(min(nu));
 k_bb = zeros(1,length(nu));
 k_bb_hi_res = zeros(1,length(nu_hi_res));
 
+if isfield(Mode,'expansion_line_limit') && Mode.expansion_line_limit
+    % limit only the hi-res part (peak not line wings) to be expansion
+    % limited. Limit the n sigma part but do the nu multiplication later
+    kappa_l_sob_lim = Mode.kappa_l_sob_lim;
+    expansion_limit = 1;
+else
+    expansion_limit = 0;
+end
+
+
 for ix = 1:length(Z)
     if ismember(ix,Mode.kappa.bb_species_select)
         for ij = 1:Z(ix)
@@ -187,14 +197,23 @@ for ix = 1:length(Z)
                         phi_hi_res = phi_hi_res .* (( nu_hi_res_sample ./ nunk(i_line) ).^4.*(nu_hi_res_sample<nunk(i_line))+(nu_hi_res_sample>nunk(i_line)));
                     end
 
-                    sig_bb = signk(i_line)*phi*c.h;
-                    sig_bb_hi_res = signk(i_line)*phi_hi_res*c.h;
                     dkappa_dsig = ij_no_frac*n_n(i_line).*(1-exp(-nunk(i_line)./T'))*w_hm_DAM_bb(i_line)/c.amu;
-                    k_bb(indcs.nu_low_edge:indcs.nu_hi_edge) = k_bb(indcs.nu_low_edge:indcs.nu_hi_edge) + dkappa_dsig*sig_bb;
-                    k_bb_hi_res(indcs.hi_res_bin) = k_bb_hi_res(indcs.hi_res_bin) + dkappa_dsig*sig_bb_hi_res;
+                    kappa_line = dkappa_dsig*signk(i_line);
+                    if expansion_limit
+                        kappa_line_hi_res = min(kappa_l_sob_lim.*nunk(i_line)/c.h,dkappa_dsig*signk(i_line));
+                    else
+                        kappa_line_hi_res = dkappa_dsig*signk(i_line);
+                    end
+                    k_bb(indcs.nu_low_edge:indcs.nu_hi_edge) = k_bb(indcs.nu_low_edge:indcs.nu_hi_edge) + kappa_line*phi*c.h;
+                    k_bb_hi_res(indcs.hi_res_bin) = k_bb_hi_res(indcs.hi_res_bin) + kappa_line_hi_res*phi_hi_res*c.h;
                 else
-                    sig_bb = signk(i_line)*phi*c.h;
-                    k_bb_hi_res(nunk_ind(i_line)) = k_bb_hi_res(nunk_ind(i_line)) + ij_no_frac*n_n(i_line).*(1-exp(-nunk(i_line)./T')).*sig_bb.*w_hm_DAM_bb(i_line)/c.amu;
+                    dkappa_dsig = ij_no_frac*n_n(i_line).*(1-exp(-nunk(i_line)./T')).*w_hm_DAM_bb(i_line)/c.amu;
+                    if expansion_limit
+                        kappa_line = min(kappa_l_sob_lim.*nunk(i_line)/c.h , signk(i_line).*dkappa_dsig);
+                    else
+                        kappa_line = signk(i_line).*dkappa_dsig;
+                    end
+                    k_bb_hi_res(nunk_ind(i_line)) = k_bb_hi_res(nunk_ind(i_line)) + kappa_line.*phi*c.h;
                 end
             end
 

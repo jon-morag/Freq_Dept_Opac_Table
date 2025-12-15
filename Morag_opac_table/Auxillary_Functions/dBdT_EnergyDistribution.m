@@ -11,7 +11,7 @@ x=(nu./Tm5n0);
 indhigh=x>300;
 indlow=x<1e-8;
 
-hc3=power_int(hc,3);
+hc3=hc^3;
 dBdT1m5g0n0=8*pi/hc3*(nu).^4./Tm5n0.^2;
 dBdTm5g0n0=dBdT1m5g0n0.*((indhigh).*exp(-x)+(~indlow&~indhigh).*exp(x)./(exp(x)-1).^2+(indlow).*exp(x).*(Tm5n0./nu).^2);
 

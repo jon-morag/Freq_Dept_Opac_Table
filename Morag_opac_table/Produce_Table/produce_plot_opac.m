@@ -1,8 +1,8 @@
 c=set_consts();
 
 %% Commonly changed settings
-rho = 1e-12; %g/cc
-T = 3; %eV
+rho = 1e-13; %g/cc
+T = 1; %eV
 % rho = 1e-13; %g/cc
 % T = 15e3*c.kboltz/c.eV; %eV
 should_plot = 1;
@@ -12,8 +12,9 @@ include_bf = 1;
 include_bb = 1;
 
 sobolev = 0; % Produces a MG approximation for bb, based on EP 93 instead of hi-res
-t_sobolev = 15*c.day;
-t_sobolev = 0.0001*c.day;
+line_expansion_limiting = 0; %Limit strong lines due to expansion (see Morag Dec. 2025)
+t_sobolev = 1*c.day;
+% t_sobolev = 0.0001*c.day;
 
 %% Grid
 if ~sobolev
@@ -60,7 +61,7 @@ Xfrac(1:2) = Xfrac(1:2) * (1-Z_metal)/(1-Z_sun);
    
 %% Produce
 tic
-[ kappa_abs,kappa_es,nu_calc ] = produce_hires_opac_tbl_rhoT( N_nu, rho , T,include_ff , include_bf ,include_bb, sobolev,t_sobolev, A , Z , Xfrac ); %Z_metal=[]->do nothing
+[ kappa_abs,kappa_es,nu_calc ] = produce_hires_opac_tbl_rhoT( N_nu, rho , T,include_ff , include_bf ,include_bb, sobolev,line_expansion_limiting,t_sobolev, A , Z , Xfrac ); %Z_metal=[]->do nothing
 toc
 
 %% Plot
@@ -69,7 +70,7 @@ if should_plot
     disp(['kappa_es=' num2str(kappa_es)])
     
     figure
-    ax=gca(); ax.ColorOrderIndex = 1; ax.FontSize = 14;
+    ax=gca(); ax.FontSize = 14; ax.ColorOrderIndex = 1;
     ax.XScale = 'log'; ax.YScale = 'log';
 
     loglog(nu_calc/c.eV , kappa_abs , 'LineWidth',1.5);
