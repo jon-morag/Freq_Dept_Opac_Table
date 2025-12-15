@@ -5,7 +5,9 @@ Written in Matlab (Octave not supported).
 
 ————————————————
 
-cite as: https://arxiv.org/abs/2307.05598
+Cite as:
+DOI: 10.5281/zenodo.17935053
+(release 2025 v2.1)
 
 ————————————————
 
