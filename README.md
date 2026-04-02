@@ -23,3 +23,8 @@ How to Use:
 - To download and use additional line lists from Kurucz, see 'setup_old' directory (not supported)
 - Optional: Install the 3rd party function ScaleTime for a ~25% efficiency improvement. Make sure to turn its use on in 'standard_opac_profile.m'.
 ScaleTime available at https://www.mathworks.com/matlabcentral/fileexchange/25463-scaletime
+
+------------------------
+
+Several functions exist in the code for checking convergence of the opacity table with respect to the total number of states in the partition function.
+These functions artificially either remove or extend the number of included excited electron states.
