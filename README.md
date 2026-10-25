@@ -26,5 +26,5 @@ ScaleTime available at https://www.mathworks.com/matlabcentral/fileexchange/2546
 
 ------------------------
 
-Several functions exist in the code for checking convergence of the opacity table with respect to the total number of states in the partition function.
+For your use, several functions exist in the code for checking convergence of the opacity table with respect to the total number of states in the partition function.
 These functions artificially either remove or extend the number of included excited electron states.
